@@ -2,17 +2,18 @@ import { Button, Checkbox, Form, Input } from "antd";
 import { useState } from "react";
 import "./styles.css";
 import { useNavigate } from "react-router-dom";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 const SignIn = () => {
   const navigate = useNavigate();
-  const [errors, setErrors] = useState("");
+  const { setItem } = useLocalStorage();
   const initialValues = {
     email: "",
     password: "",
   };
 
   const onSignIn = (values) => {
-    console.log(values);
+    setItem("token", values);
     navigate("/revenue");
   };
 

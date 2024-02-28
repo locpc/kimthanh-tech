@@ -1,6 +1,8 @@
 import { Button } from "antd";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import "./styles.css";
+import { useEffect } from "react";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 const HEADER_MENU = [
   { url: "/", value: "Dashboard" },
@@ -9,6 +11,20 @@ const HEADER_MENU = [
 
 const Header = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { getItem } = useLocalStorage();
+  const handleLogOut = () => {
+    navigate("/sign-in");
+  };
+
+  useEffect(() => {
+    const token = getItem("token");
+    console.log(token);
+    if (!token) {
+      navigate("/sign-in");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="h-screen">
@@ -45,7 +61,12 @@ const Header = () => {
               <img src="/imgs/avatar.png" width={40} height={40} alt="avatar" />
               <div>
                 <p className="text-sm text-[#525252] font-bold">Anh Nguyen</p>
-                <p className="text-sm text-[#A3AED0] cursor-pointer">Log out</p>
+                <p
+                  className="text-sm text-[#A3AED0] cursor-pointer"
+                  onClick={handleLogOut}
+                >
+                  Log out
+                </p>
               </div>
             </div>
           </div>
