@@ -2,6 +2,7 @@ import { DatePicker } from "antd";
 import { useState } from "react";
 import locale from "antd/es/date-picker/locale/vi_VN";
 import dayjs from "dayjs";
+import DataTable from "./DataTable";
 
 const TIME_MENU = [
   {
@@ -15,7 +16,6 @@ const TIME_MENU = [
 const Revenue = () => {
   const [activeFilter, setActiveFilter] = useState("month");
   const [openDatePicker, setOpenDatePicker] = useState(false);
-  console.log(`${new Date()}/${new Date().getFullYear()}`);
   const handleChangeFilterType = (type) => {
     setActiveFilter(type);
   };
@@ -26,8 +26,7 @@ const Revenue = () => {
   const defaultTime = () => {
     const month = new Date().getMonth() + 1;
     const year = new Date().getFullYear();
-    if (month < 10)
-      return `0${month}/${year}`;
+    if (month < 10) return `0${month}/${year}`;
     return `${month}/${year}`;
   };
 
@@ -40,6 +39,7 @@ const Revenue = () => {
             <div className="flex gap-4 bg-white rounded-2xl">
               {TIME_MENU.map(({ value, type }) => (
                 <div
+                  key={value}
                   className={`rounded-2xl px-4 py-[6px] cursor-pointer ${
                     activeFilter === type ? "bg-[#D1E9FF]" : "bg-transparent"
                   }`}
@@ -61,6 +61,7 @@ const Revenue = () => {
             />
           </div>
         </div>
+        <DataTable />
       </div>
     </div>
   );

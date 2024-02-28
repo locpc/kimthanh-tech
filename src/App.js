@@ -6,6 +6,7 @@ import "./App.css";
 import SignIn from "./pages/sign-in";
 import Header from "./components/header";
 import Revenue from "./pages/revenue";
+import RevenueDetails from "./pages/revenue-details";
 
 function App() {
   return (
@@ -15,6 +16,10 @@ function App() {
           <Route path="/" element={<Header />}>
             <Route index element={<Home />} />
             <Route path="/revenue" element={<Revenue />} />
+            <Route
+              path="/revenue/:revenueId"
+              element={<RevenueDetails />}
+            ></Route>
           </Route>
           <Route path="sign-in" element={<SignIn />} />
           <Route path="*" element={<NotFound />} />

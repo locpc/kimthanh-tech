@@ -1,0 +1,29 @@
+.custom-table th {
+  border: 1px solid #C5C5C5;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.custom-table td {
+  border: 1px solid #C5C5C5;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.custom-table {
+  border: 1px solid #C5C5C5;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+th {
+  color: #363493;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+td {
+  font-size: 13px;
+  color: #435071;
+  font-weight: 400;
+}

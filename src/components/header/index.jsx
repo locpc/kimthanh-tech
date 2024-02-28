@@ -11,7 +11,7 @@ const Header = () => {
   const location = useLocation();
 
   return (
-    <div>
+    <div className="h-screen">
       <div className="w-full shadow-header">
         <div className="flex items-center justify-between container">
           <div className="flex gap-8 items-center">
@@ -19,9 +19,10 @@ const Header = () => {
               <img src="/imgs/logo.svg" alt="logo" />
             </Link>
             {HEADER_MENU.map(({ url, value }) => (
-              <Link to={url}>
+              <Link to={url} key={url}>
                 <p
                   className={`text-sm py-5 px-4 border-b-2 transition-all duration-300 ${
+                    (location.pathname.includes(url) && url !== "/") ||
                     location.pathname === url
                       ? "text-main border-main"
                       : "text-[#A3AED0] border-transparent"
