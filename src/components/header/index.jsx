@@ -1,7 +1,7 @@
 import { Button } from "antd";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import "./styles.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 const HEADER_MENU = [
@@ -12,8 +12,15 @@ const HEADER_MENU = [
 const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { getItem } = useLocalStorage();
+  const { getItem, removeItem } = useLocalStorage();
+  const [hamburger, setHamburger] = useState(false);
+
+  useEffect(() => {
+    setHamburger(false);
+  }, [location.pathname]);
+
   const handleLogOut = () => {
+    removeItem("token");
     navigate("/sign-in");
   };
 
@@ -28,14 +35,14 @@ const Header = () => {
 
   return (
     <div className="h-screen">
-      <div className="w-full shadow-header">
-        <div className="flex items-center justify-between container">
+      <div className="fixed top-0 w-full shadow-header h-16 bg-white z-10">
+        <div className="flex items-center justify-between container h-full">
           <div className="flex gap-8 items-center">
             <Link to="/">
               <img src="/imgs/logo.svg" alt="logo" />
             </Link>
             {HEADER_MENU.map(({ url, value }) => (
-              <Link to={url} key={url}>
+              <Link to={url} key={url} className="hidden lg:block">
                 <p
                   className={`text-sm py-5 px-4 border-b-2 transition-all duration-300 ${
                     (location.pathname.includes(url) && url !== "/") ||
@@ -49,7 +56,7 @@ const Header = () => {
               </Link>
             ))}
           </div>
-          <div className="flex gap-8 items-center">
+          <div className="hidden lg:flex gap-8 items-center">
             <Button
               type="primary"
               className="flex gap-1 bg-main hover:bg-main rounded-2xl text-sm text-white"
@@ -70,9 +77,59 @@ const Header = () => {
               </div>
             </div>
           </div>
+          <div
+            className="block lg:hidden"
+            onClick={() => {
+              setHamburger(true);
+            }}
+          >
+            <img src="/imgs/menu.svg" alt="logo" />
+          </div>
         </div>
       </div>
-      <Outlet />
+      <div
+        className={`lg:hidden absolute top-0 z-10 ${
+          hamburger ? "right-0" : "-right-[999px]"
+        } transition-all duration-700 w-full h-[100vh] bg-white`}
+      >
+        <div className="border-b border-b-[#BBB2A7]">
+          <div className="flex justify-between items-center container px-4 h-16">
+            <Link to="/">
+              <img src="/imgs/logo.svg" alt="logo" />
+            </Link>
+            <div
+              onClick={() => {
+                setHamburger(false);
+              }}
+            >
+              <img src="/imgs/menu.svg" alt="logo" />
+            </div>
+          </div>
+        </div>
+        <div className="mt-20 px-4 py-5">
+          {HEADER_MENU.map(({ url, value }) => (
+            <div key={value}>
+              <Link to={url}>
+                <div className="text-2xl font-medium text-black py-3 border-b border-b-extra-blue">
+                  {value}
+                </div>
+              </Link>
+            </div>
+          ))}
+          <div className="text-2xl font-medium text-black py-3 border-b border-b-extra-blue">
+            Add app
+          </div>
+          <div
+            className="text-2xl font-medium text-black py-3 border-b border-b-extra-blue"
+            onClick={handleLogOut}
+          >
+            Logout
+          </div>
+        </div>
+      </div>
+      <div className="mt-16 h-full">
+        <Outlet />
+      </div>
     </div>
   );
 };

@@ -14,16 +14,37 @@
   border: 1px solid #C5C5C5;
   border-collapse: collapse;
   text-align: center;
+  border-radius: 8px;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 th {
   color: #363493;
   font-size: 14px;
   font-weight: 600;
+  width: 100px;
+}
+
+th:nth-child(1) {
+  border-top-left-radius: 8px;
 }
 
 td {
   font-size: 13px;
   color: #435071;
   font-weight: 400;
+}
+
+::-webkit-scrollbar {
+  display: none;
+} 
+
+:where(.css-dev-only-do-not-override-1k979oh).ant-select-outlined:not(.ant-select-customize-input) .ant-select-selector {
+  background: #D1E9FF;
+  border: none;
+  color: #363493;
+  font-weight: 500;
+  font-size: 14px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }

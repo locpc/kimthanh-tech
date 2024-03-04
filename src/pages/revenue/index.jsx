@@ -1,4 +1,4 @@
-import { DatePicker } from "antd";
+import { DatePicker, Select } from "antd";
 import { useState } from "react";
 import locale from "antd/es/date-picker/locale/vi_VN";
 import dayjs from "dayjs";
@@ -6,11 +6,11 @@ import DataTable from "./DataTable";
 
 const TIME_MENU = [
   {
-    value: "Tuần",
-    type: "week",
+    label: "Tuần",
+    value: "week",
   },
-  { value: "Tháng", type: "month" },
-  { value: "Năm", type: "year" },
+  { label: "Tháng", value: "month" },
+  { label: "Năm", value: "year" },
 ];
 
 const Revenue = () => {
@@ -36,29 +36,41 @@ const Revenue = () => {
         <div className="flex items-center justify-between py-4">
           <div className="flex gap-8">
             <p className="text-xl text-main font-semibold">Doanh thu</p>
-            <div className="flex gap-4 bg-white rounded-2xl">
-              {TIME_MENU.map(({ value, type }) => (
+            <div className="hidden lg:flex gap-4 py-[2px] bg-white rounded-2xl">
+              {TIME_MENU.map(({ value, label }) => (
                 <div
                   key={value}
                   className={`rounded-2xl px-4 py-[6px] cursor-pointer ${
-                    activeFilter === type ? "bg-[#D1E9FF]" : "bg-transparent"
+                    activeFilter === value ? "bg-[#D1E9FF]" : "bg-transparent"
                   }`}
-                  onClick={() => handleChangeFilterType(type)}
+                  onClick={() => handleChangeFilterType(value)}
                 >
-                  <p className="text-sm text-black font-medium">{value}</p>
+                  <p className="text-sm text-black font-medium">{label}</p>
                 </div>
               ))}
             </div>
           </div>
-          <div onClick={handleChangeFilter}>
-            <DatePicker
-              defaultValue={dayjs(defaultTime(), "MM/YYYY")}
-              onChange={onChangeTime}
-              picker={activeFilter}
-              suffixIcon={<img src="/imgs/selected-time.svg" alt="time" />}
-              className="bg-[#D1E9FF] text-sm text-main font-medium border-none rounded-2xl px-4 py-[6px]"
-              locale={locale}
-            />
+          <div className="flex gap-2">
+            <div className="block lg:hidden">
+              <Select
+                defaultValue="month"
+                style={{ width: 120 }}
+                onChange={handleChangeFilterType}
+                options={TIME_MENU}
+                className="bg-[#D1E9FF] text-sm text-main font-medium border-none rounded-2xl px-2 lg:px-4 py-[6px]"
+                suffixIcon={<img src="/imgs/selected-time.svg" alt="time" />}
+              />
+            </div>
+            <div onClick={handleChangeFilter}>
+              <DatePicker
+                defaultValue={dayjs(defaultTime(), "MM/YYYY")}
+                onChange={onChangeTime}
+                picker={activeFilter}
+                suffixIcon={<img src="/imgs/selected-time.svg" alt="time" />}
+                className="bg-[#D1E9FF] text-sm text-main font-medium border-none rounded-2xl px-2 lg:px-4 py-[6px]"
+                locale={locale}
+              />
+            </div>
           </div>
         </div>
         <DataTable />

@@ -1,15 +1,16 @@
-import { DatePicker } from "antd";
+import { DatePicker, Select } from "antd";
 import { useState } from "react";
 import dayjs from "dayjs";
 import locale from "antd/es/date-picker/locale/vi_VN";
+import "./styles.css";
 
 const TIME_MENU = [
   {
-    value: "Tuần",
-    type: "week",
+    label: "Tuần",
+    value: "week",
   },
-  { value: "Tháng", type: "month" },
-  { value: "Năm", type: "year" },
+  { label: "Tháng", value: "month" },
+  { label: "Năm", value: "year" },
 ];
 
 const RevenueDetails = () => {
@@ -33,7 +34,7 @@ const RevenueDetails = () => {
   return (
     <div className="bg-[#F4F7FE] h-full">
       <div className="container">
-        <div className="flex items-center justify-between py-4">
+        <div className="flex flex-col lg:flex-row lg:items-center gap-2 justify-between py-4">
           <div className="flex gap-8">
             <div className="flex gap-2 items-center">
               <div className="w-3 h-3 rounded-md bg-[#00ED34]" />
@@ -44,33 +45,45 @@ const RevenueDetails = () => {
             </div>
           </div>
           <div className="flex gap-4 items-center">
-            <div className="flex gap-4 bg-white rounded-2xl">
-              {TIME_MENU.map(({ value, type }) => (
+            <div className="hidden lg:flex gap-4 py-[2px] bg-white rounded-2xl">
+              {TIME_MENU.map(({ value, label }) => (
                 <div
                   key={value}
                   className={`rounded-2xl px-4 py-[6px] cursor-pointer ${
-                    activeFilter === type ? "bg-[#D1E9FF]" : "bg-transparent"
+                    activeFilter === value ? "bg-[#D1E9FF]" : "bg-transparent"
                   }`}
-                  onClick={() => handleChangeFilterType(type)}
+                  onClick={() => handleChangeFilterType(value)}
                 >
-                  <p className="text-sm text-black font-medium">{value}</p>
+                  <p className="text-sm text-black font-medium">{label}</p>
                 </div>
               ))}
             </div>
-            <div onClick={handleChangeFilter}>
-              <DatePicker
-                defaultValue={dayjs(defaultTime(), "MM/YYYY")}
-                onChange={onChangeTime}
-                picker={activeFilter}
-                suffixIcon={<img src="/imgs/selected-time.svg" alt="time" />}
-                className="bg-[#D1E9FF] text-sm text-main font-medium border-none rounded-2xl px-4 py-[6px]"
-                locale={locale}
-              />
+            <div className="flex gap-2">
+              <div className="block lg:hidden">
+                <Select
+                  defaultValue="month"
+                  style={{ width: 120 }}
+                  onChange={handleChangeFilterType}
+                  options={TIME_MENU}
+                  className="bg-[#D1E9FF] text-sm text-main font-medium border-none rounded-2xl px-2 lg:px-4 py-[6px]"
+                  suffixIcon={<img src="/imgs/selected-time.svg" alt="time" />}
+                />
+              </div>
+              <div onClick={handleChangeFilter}>
+                <DatePicker
+                  defaultValue={dayjs(defaultTime(), "MM/YYYY")}
+                  onChange={onChangeTime}
+                  picker={activeFilter}
+                  suffixIcon={<img src="/imgs/selected-time.svg" alt="time" />}
+                  className="bg-[#D1E9FF] text-sm text-main font-medium border-none rounded-2xl px-4 py-[6px]"
+                  locale={locale}
+                />
+              </div>
             </div>
           </div>
         </div>
         <div className="mt-3 bg-white p-10">
-          <div className="grid grid-cols-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
             <div className="text-center">
               <p className="text-3xl text-main font-bold">40.531</p>
               <p className="text-2xl text-[#A3AED0]">Doanh thu</p>
