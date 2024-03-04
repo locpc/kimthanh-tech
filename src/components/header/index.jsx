@@ -86,44 +86,44 @@ const Header = () => {
             <img src="/imgs/menu.svg" alt="logo" />
           </div>
         </div>
-      </div>
-      <div
-        className={`lg:hidden absolute top-0 z-10 ${
-          hamburger ? "right-0" : "-right-[999px]"
-        } transition-all duration-700 w-full h-[100vh] bg-white`}
-      >
-        <div className="border-b border-b-[#BBB2A7]">
-          <div className="flex justify-between items-center container px-4 h-16">
-            <Link to="/">
-              <img src="/imgs/logo.svg" alt="logo" />
-            </Link>
-            <div
-              onClick={() => {
-                setHamburger(false);
-              }}
-            >
-              <img src="/imgs/menu.svg" alt="logo" />
-            </div>
-          </div>
-        </div>
-        <div className="mt-20 px-4 py-5">
-          {HEADER_MENU.map(({ url, value }) => (
-            <div key={value}>
-              <Link to={url}>
-                <div className="text-2xl font-medium text-black py-3 border-b border-b-extra-blue">
-                  {value}
-                </div>
+        <div
+          className={`lg:hidden absolute top-0 z-10 ${
+            hamburger ? "right-0" : "-right-[999px]"
+          } transition-all duration-700 w-full h-[100vh] bg-white`}
+        >
+          <div className="border-b border-b-[#BBB2A7]">
+            <div className="flex justify-between items-center container px-4 h-16">
+              <Link to="/">
+                <img src="/imgs/logo.svg" alt="logo" />
               </Link>
+              <div
+                onClick={() => {
+                  setHamburger(false);
+                }}
+              >
+                <img src="/imgs/menu.svg" alt="logo" />
+              </div>
             </div>
-          ))}
-          <div className="text-2xl font-medium text-black py-3 border-b border-b-extra-blue">
-            Add app
           </div>
-          <div
-            className="text-2xl font-medium text-black py-3 border-b border-b-extra-blue"
-            onClick={handleLogOut}
-          >
-            Logout
+          <div className="mt-20 px-4 py-5">
+            {HEADER_MENU.map(({ url, value }) => (
+              <div key={value}>
+                <Link to={url}>
+                  <div className="text-2xl font-medium text-black py-3 border-b border-b-extra-blue">
+                    {value}
+                  </div>
+                </Link>
+              </div>
+            ))}
+            <div className="text-2xl font-medium text-black py-3 border-b border-b-extra-blue">
+              Add app
+            </div>
+            <div
+              className="text-2xl font-medium text-black py-3 border-b border-b-extra-blue"
+              onClick={handleLogOut}
+            >
+              Logout
+            </div>
           </div>
         </div>
       </div>
