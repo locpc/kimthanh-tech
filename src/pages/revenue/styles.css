@@ -1,8 +1,16 @@
-.custom-table th:not:first-child {
+.custom-table th {
   border-left: 1px solid #c5c5c5;
   border-right: 1px solid #c5c5c5;
   border-collapse: collapse;
   text-align: center;
+}
+
+.custom-table th:first-child {
+  border-left: none;
+}
+
+.custom-table th:last-child {
+  border-right: none;
 }
 
 .custom-table td {
