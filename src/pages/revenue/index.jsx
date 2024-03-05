@@ -32,8 +32,8 @@ const Revenue = () => {
 
   return (
     <div className="bg-[#F4F7FE] h-full">
-      <div className="container">
-        <div className="flex items-center justify-between py-4">
+      <div className="">
+        <div className="flex items-center justify-between py-4 container">
           <div className="flex gap-8">
             <p className="text-xl text-main font-semibold">Doanh thu</p>
             <div className="hidden lg:flex gap-4 py-[2px] bg-white rounded-2xl">
@@ -73,7 +73,9 @@ const Revenue = () => {
             </div>
           </div>
         </div>
-        <DataTable />
+        <div className="px-5">
+          <DataTable />
+        </div>
       </div>
     </div>
   );

@@ -15,21 +15,23 @@ const DataTable = () => {
         className="custom-table"
         style={{ width: "100%", background: "white" }}
       >
-        <tr>
-          <th>App</th>
-          <th className="w-5"></th>
-          <th>Sum</th>
-          <th>01/02</th>
-          <th>02/02</th>
-          <th>03/02</th>
-          <th>04/02</th>
-          <th>05/02</th>
-          <th>06/02</th>
-          <th>07/02</th>
-          <th>08/02</th>
-          <th>09/02</th>
-          <th>10/02</th>
-        </tr>
+        <thead>
+          <tr>
+            <th>App</th>
+            <th className="w-5"></th>
+            <th>Sum</th>
+            <th>29/02</th>
+            <th>01/03</th>
+            <th>02/03</th>
+            <th>03/03</th>
+            <th>04/03</th>
+            <th>05/03</th>
+            <th>06/03</th>
+            <th>07/03</th>
+            <th>08/03</th>
+            <th>09/03</th>
+          </tr>
+        </thead>
         <tr>
           <td rowSpan={4} className="text-center w-72">
             <p className="text-main text-sm font-semibold">19 App</p>
@@ -109,7 +111,7 @@ const DataTable = () => {
         <tr>
           <td
             rowSpan={4}
-            className="text-center px-1 cursor-pointer"
+            className="text-center px-1 cursor-pointer hover:bg-[#ebe9e9]"
             onClick={onHandleDetails}
           >
             <div className="flex gap-1 items-center">
@@ -205,7 +207,7 @@ const DataTable = () => {
         <tr>
           <td
             rowSpan={4}
-            className="text-center px-1 cursor-pointer"
+            className="text-center px-1 cursor-pointer hover:bg-[#ebe9e9]"
             onClick={onHandleDetails}
           >
             <div className="flex gap-1 items-center">
@@ -313,7 +315,7 @@ const DataTable = () => {
         <tr>
           <td
             rowSpan={4}
-            className="text-center px-1 cursor-pointer"
+            className="text-center px-1 cursor-pointer hover:bg-[#ebe9e9]"
             onClick={onHandleDetails}
           >
             <div className="flex gap-1 items-center">
@@ -417,7 +419,7 @@ const DataTable = () => {
         <tr>
           <td
             rowSpan={4}
-            className="text-center px-1 cursor-pointer"
+            className="text-center px-1 cursor-pointer hover:bg-[#ebe9e9]"
             onClick={onHandleDetails}
           >
             <div className="flex gap-1 items-center">

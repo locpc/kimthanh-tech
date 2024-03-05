@@ -6,6 +6,10 @@ import "./styles.css";
 
 const TIME_MENU = [
   {
+    label: "Tất cả",
+    value: "all",
+  },
+  {
     label: "Tuần",
     value: "week",
   },
@@ -77,6 +81,7 @@ const RevenueDetails = () => {
                   suffixIcon={<img src="/imgs/selected-time.svg" alt="time" />}
                   className="bg-[#D1E9FF] text-sm text-main font-medium border-none rounded-2xl px-4 py-[6px]"
                   locale={locale}
+                  disabled={activeFilter === "all"}
                 />
               </div>
             </div>
