@@ -1,6 +1,7 @@
 import { useState, useContext, createContext } from "react";
 import { api } from "./api";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import { API_URL } from "../config";
 
 const AuthContext = createContext(null);
 
@@ -9,17 +10,15 @@ const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [user, setUser] = useState();
 
-  const handleLogin = async ({ phone, password }) => {
+  const handleLogin = async ({ email, password }) => {
     try {
-      const res = await api.post("/auth/sign-in", {
-        phoneNumber: phone,
+      const res = await api.post(`${API_URL}/auth/login`, {
+        email,
         password,
       });
-      if (res && res?.data) {
-        const token = res?.data?.accessToken;
-        const refresh = res?.data?.refreshToken;
+      if (res && res?.data?.access_token) {
+        const token = res?.data?.access_token;
         setItem("token", token);
-        setItem("refresh", refresh);
         setToken(token);
         return token;
       }

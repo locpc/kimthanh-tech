@@ -3,18 +3,24 @@ import { useState } from "react";
 import "./styles.css";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { useAuth } from "../../provider/auth";
 
 const SignIn = () => {
   const navigate = useNavigate();
+  const { onLogin } = useAuth();
   const { setItem } = useLocalStorage();
   const initialValues = {
     email: "",
     password: "",
   };
 
-  const onSignIn = (values) => {
-    setItem("token", values);
-    navigate("/revenue");
+  const onSignIn = async (values) => {
+    const token = await onLogin(values);
+    if (token) {
+      navigate("/revenue");
+    } else {
+      alert("Email hoặc mật khẩu chưa đúng");
+    }
   };
 
   return (

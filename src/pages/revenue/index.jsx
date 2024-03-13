@@ -1,8 +1,10 @@
-import { DatePicker, Select } from "antd";
-import { useState } from "react";
+import { DatePicker, Select, Spin } from "antd";
+import { useEffect, useRef, useState } from "react";
 import locale from "antd/es/date-picker/locale/vi_VN";
 import dayjs from "dayjs";
 import DataTable from "./DataTable";
+import { api } from "../../provider/api";
+import { API_URL } from "../../config";
 
 const TIME_MENU = [
   {
@@ -13,22 +15,63 @@ const TIME_MENU = [
   { label: "Năm", value: "year" },
 ];
 
+const defaultValue = () => {
+  const month = new Date().getMonth() + 1;
+  const year = new Date().getFullYear();
+  if (month < 10) return `${year}-0${month}`;
+  return `${year}-${month}`;
+};
+
 const Revenue = () => {
   const [activeFilter, setActiveFilter] = useState("month");
-  const [openDatePicker, setOpenDatePicker] = useState(false);
+  const [openDatePicker, setOpenDatePicker] = useState(true);
+  const [value, setValue] = useState(defaultValue());
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
+  const ref = useRef(null);
+
   const handleChangeFilterType = (type) => {
     setActiveFilter(type);
+    setTimeout(() => {
+      if (ref.current.nativeElement.innerHTML) {
+        const getTempValue =
+          ref?.current?.nativeElement?.innerHTML?.split("value=")[1];
+        const value = getTempValue.split('"');
+        setValue(value[1]);
+      }
+    }, 300);
   };
   const handleChangeFilter = () => {
     setOpenDatePicker(!openDatePicker);
   };
-  const onChangeTime = (date, dateString) => {};
+  const onChangeTime = (date, dateString) => {
+    setValue(dateString);
+  };
   const defaultTime = () => {
     const month = new Date().getMonth() + 1;
     const year = new Date().getFullYear();
     if (month < 10) return `0${month}/${year}`;
     return `${month}/${year}`;
   };
+
+  useEffect(() => {
+    (async () => {
+      setLoading(true);
+      try {
+        const res = await api.get(
+          `${API_URL}/report?filter_type=${activeFilter}&&value=${value}`
+        );
+        if (res && res?.data?.data) {
+          setData(res?.data?.data);
+        } else {
+          setData([]);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+      setLoading(false);
+    })();
+  }, [activeFilter, value]);
 
   return (
     <div className="bg-[#F4F7FE] h-full">
@@ -63,6 +106,7 @@ const Revenue = () => {
             </div>
             <div onClick={handleChangeFilter}>
               <DatePicker
+                ref={ref}
                 defaultValue={dayjs(defaultTime(), "MM/YYYY")}
                 onChange={onChangeTime}
                 picker={activeFilter}
@@ -74,7 +118,13 @@ const Revenue = () => {
           </div>
         </div>
         <div className="px-5">
-          <DataTable />
+          {loading ? (
+            <div className="mt-10 flex justify-center items-center">
+              <Spin />
+            </div>
+          ) : (
+            <DataTable data={data} />
+          )}
         </div>
       </div>
     </div>
