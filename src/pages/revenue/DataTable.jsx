@@ -33,7 +33,7 @@ const DataTable = ({ data }) => {
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr className="sticky-row-1">
                 <td rowSpan={4} className="sticky text-center">
                   <p className="text-main text-sm font-semibold">
                     {data?.total?.total_app} App
@@ -65,7 +65,7 @@ const DataTable = ({ data }) => {
                   <td key={Math.random()}>{value?.cost}</td>
                 ))}
               </tr>
-              <tr>
+              <tr className="sticky-row-2">
                 <td>R</td>
                 <td>{data?.total?.sum?.revenue}</td>
                 {Object.values(
@@ -76,7 +76,7 @@ const DataTable = ({ data }) => {
                   <td key={Math.random()}>{value?.revenue}</td>
                 ))}
               </tr>
-              <tr>
+              <tr className="sticky-row-3">
                 <td>P</td>
                 <td
                   style={{
@@ -105,7 +105,7 @@ const DataTable = ({ data }) => {
                   </td>
                 ))}
               </tr>
-              <tr>
+              <tr className="sticky-row-4">
                 <td>%</td>
                 <td
                   style={{
