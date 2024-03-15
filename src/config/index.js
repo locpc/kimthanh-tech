@@ -1,1 +1,1 @@
-export const API_URL = "https://dev-report-admod.myzens.net/api";
+export const API_URL = "http://157.kimthanhtech.com/api";
