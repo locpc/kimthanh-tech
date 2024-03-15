@@ -108,6 +108,10 @@ thead th:first-child {
   background-color: white;
 }
 
+.custom-table .sticky-row-1 td:first-child {
+  z-index: 4;
+}
+
 .custom-table .sticky-row-2 td {
   position: -webkit-sticky;
   position: sticky;
@@ -183,4 +187,87 @@ tr:last-child td {
 table {
   border-collapse: separate;
   border-spacing: 0;
+  table-layout: fixed;
+}
+
+th:nth-child(2) {
+  left: 18rem;
+  z-index: 4;
+}
+
+th:nth-child(3) {
+  left: 19.25rem;
+  z-index: 4;
+}
+
+.sticky-row-1 td:nth-child(2) {
+  left: 18rem;
+  z-index: 4;
+}
+
+.sticky-row-1 td:nth-child(3) {
+  left: 19.25rem;
+  z-index: 4;
+}
+
+.sticky-row-2 td:nth-child(1) {
+  left: 18rem;
+  z-index: 4;
+}
+
+.sticky-row-2 td:nth-child(2) {
+  left: 19.25rem;
+  z-index: 4;
+}
+
+.sticky-row-3 td:nth-child(1) {
+  left: 18rem;
+  z-index: 4;
+}
+
+.sticky-row-3 td:nth-child(2) {
+  left: 19.25rem;
+  z-index: 4;
+}
+
+.sticky-row-4 td:nth-child(1) {
+  left: 18rem;
+  z-index: 4;
+}
+
+.sticky-row-4 td:nth-child(2) {
+  left: 19.25rem;
+  z-index: 4;
+}
+
+.sticky-left td:nth-child(2) {
+  position: -webkit-sticky;
+  position: sticky;
+  left: 18rem;
+  z-index: 4;
+  background: white;
+}
+
+.sticky-left td:nth-child(3) {
+  position: -webkit-sticky;
+  position: sticky;
+  left: 19.25rem;
+  z-index: 4;
+  background: white;
+}
+
+.sticky-left-1 td:nth-child(1) {
+  position: -webkit-sticky;
+  position: sticky;
+  left: 18rem;
+  z-index: 4;
+  background: white;
+}
+
+.sticky-left-1 td:nth-child(2) {
+  position: -webkit-sticky;
+  position: sticky;
+  left: 19.25rem;
+  z-index: 4;
+  background: white;
 }

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "./styles.css";
 import React from "react";
+import { Tooltip } from "antd";
 
 const DataTable = ({ data }) => {
   const navigate = useNavigate();
@@ -17,10 +18,10 @@ const DataTable = ({ data }) => {
           className="custom-table"
           style={{ width: "100%", background: "white" }}
         >
-          <table id="main-table" className="main-table">
+          <table id="main-table" className="main-table w-full">
             <thead>
               <tr>
-                <th>App</th>
+                <th className="w-72">App</th>
                 <th className="w-5"></th>
                 <th>Sum</th>
                 {Object.keys(
@@ -80,10 +81,13 @@ const DataTable = ({ data }) => {
                 <td>P</td>
                 <td
                   style={{
-                    background:
-                      data?.total?.sum?.profit > 0 ? "#88F077" : "#FF0000",
+                    background: !data?.total?.sum?.profit?.includes("-")
+                      ? "#88F077"
+                      : "#FF0000",
                     fontWeight: "bold",
-                    color: data?.total?.sum?.profit < 0 ? "white" : "#435071",
+                    color: data?.total?.sum?.profit?.includes("-")
+                      ? "white"
+                      : "#435071",
                   }}
                 >
                   {data?.total?.sum?.profit}
@@ -95,9 +99,11 @@ const DataTable = ({ data }) => {
                 ).map((value) => (
                   <td
                     style={{
-                      background: value?.profit > 0 ? "#88F077" : "#FF0000",
+                      background: !value?.profit?.includes("-")
+                        ? "#88F077"
+                        : "#FF0000",
                       fontWeight: "bold",
-                      color: value?.profit < 0 ? "white" : "#435071",
+                      color: value?.profit?.includes("-") ? "white" : "#435071",
                     }}
                     key={Math.random()}
                   >
@@ -109,11 +115,13 @@ const DataTable = ({ data }) => {
                 <td>%</td>
                 <td
                   style={{
-                    background:
-                      data?.total?.sum?.profit_rate > 0 ? "#88F077" : "#FF0000",
+                    background: !data?.total?.sum?.profit_rate?.includes("-")
+                      ? "#88F077"
+                      : "#FF0000",
                     fontWeight: "bold",
-                    color:
-                      data?.total?.sum?.profit_rate <= 0 ? "white" : "#435071",
+                    color: data?.total?.sum?.profit_rate?.includes("-")
+                      ? "white"
+                      : "#435071",
                   }}
                 >
                   {data?.total?.sum?.profit_rate}%
@@ -126,9 +134,16 @@ const DataTable = ({ data }) => {
                   <td
                     style={{
                       background:
-                        value?.profit_rate > 0 ? "#88F077" : "#FF0000",
+                        !value?.profit_rate?.includes("-") &&
+                        value?.profit_rate !== "0"
+                          ? "#88F077"
+                          : "#FF0000",
                       fontWeight: "bold",
-                      color: value?.profit_rate <= 0 ? "white" : "#435071",
+                      color:
+                        value?.profit_rate?.includes("-") ||
+                        value?.profit_rate === "0"
+                          ? "white"
+                          : "#435071",
                     }}
                     key={Math.random()}
                   >
@@ -143,7 +158,7 @@ const DataTable = ({ data }) => {
               </tr>
               {data?.list_app?.map((item) => (
                 <React.Fragment key={item.app_id}>
-                  <tr>
+                  <tr className="sticky-left">
                     <td
                       rowSpan={4}
                       className="sticky text-center px-1 cursor-pointer hover:!bg-[#ebe9e9]"
@@ -151,10 +166,16 @@ const DataTable = ({ data }) => {
                     >
                       <div className="flex gap-1 items-center">
                         <div className="w-2 h-2 rounded bg-[#00ED34]" />
-                        <p className="text-xs text-[#A3AED0] font-bold">221</p>
-                        <p className="text-sm text-main font-bold">
-                          Wifi Password: Wifi Master Key
-                        </p>
+                        <Tooltip title={item?.app_info?.store_id}>
+                          <p className="text-xs text-[#A3AED0] font-bold max-w-48 overflow-hidden truncate">
+                            {item?.app_info?.store_id}
+                          </p>
+                        </Tooltip>
+                        <Tooltip title={item?.app_info?.app_name}>
+                          <p className="text-sm text-main font-bold max-w-48 overflow-hidden truncate">
+                            {item?.app_info?.app_name}
+                          </p>
+                        </Tooltip>
                       </div>
                       <div className="grid grid-cols-2">
                         <div className="flex gap-1">
@@ -189,21 +210,26 @@ const DataTable = ({ data }) => {
                       <td key={Math.random()}>{value?.cost}</td>
                     ))}
                   </tr>
-                  <tr>
+                  <tr className="sticky-left-1">
                     <td>R</td>
                     <td>{item?.sum_revenue}</td>
                     {Object.values(item?.date_report || {}).map((value) => (
                       <td key={Math.random()}>{value?.revenue}</td>
                     ))}
                   </tr>
-                  <tr>
+                  <tr className="sticky-left-1">
                     <td>P</td>
                     <td
                       style={{
                         background:
-                          item?.sum_profit > 0 ? "#88F077" : "#FF0000",
+                          !item?.sum_profit?.includes("-") &&
+                          item?.sum_profit !== "0"
+                            ? "#88F077"
+                            : "#FF0000",
                         fontWeight: "bold",
-                        color: item?.sum_profit < 0 ? "white" : "#435071",
+                        color: item?.sum_profit?.includes("-")
+                          ? "white"
+                          : "#435071",
                       }}
                     >
                       {item?.sum_profit}
@@ -211,9 +237,17 @@ const DataTable = ({ data }) => {
                     {Object.values(item?.date_report || {}).map((value) => (
                       <td
                         style={{
-                          background: value?.profit > 0 ? "#88F077" : "#FF0000",
+                          background:
+                            !value?.profit?.includes("-") &&
+                            value?.profit !== "0"
+                              ? "#88F077"
+                              : "#FF0000",
                           fontWeight: "bold",
-                          color: value?.profit < 0 ? "white" : "#435071",
+                          color:
+                            value?.profit?.includes("-") ||
+                            value?.profit === "0"
+                              ? "white"
+                              : "#435071",
                         }}
                         key={Math.random()}
                       >
@@ -221,14 +255,21 @@ const DataTable = ({ data }) => {
                       </td>
                     ))}
                   </tr>
-                  <tr>
+                  <tr className="sticky-left-1">
                     <td>%</td>
                     <td
                       style={{
                         background:
-                          item?.sum_profit_rate > 0 ? "#88F077" : "#FF0000",
+                          !item?.sum_profit_rate?.includes("-") &&
+                          item?.sum_profit_rate !== "0"
+                            ? "#88F077"
+                            : "#FF0000",
                         fontWeight: "bold",
-                        color: item?.sum_profit_rate <= 0 ? "white" : "#435071",
+                        color:
+                          item?.sum_profit_rate?.includes("-") ||
+                          item?.sum_profit_rate === "0"
+                            ? "white"
+                            : "#435071",
                       }}
                     >
                       {item?.sum_profit_rate}%
@@ -237,9 +278,16 @@ const DataTable = ({ data }) => {
                       <td
                         style={{
                           background:
-                            value?.profit_rate > 0 ? "#88F077" : "#FF0000",
+                            !value?.profit_rate?.includes("-") &&
+                            value?.profit_rate !== "0"
+                              ? "#88F077"
+                              : "#FF0000",
                           fontWeight: "bold",
-                          color: value?.profit_rate <= 0 ? "white" : "#435071",
+                          color:
+                            value?.profit_rate?.includes("-") ||
+                            value?.profit_rate === "0"
+                              ? "white"
+                              : "#435071",
                         }}
                         key={Math.random()}
                       >

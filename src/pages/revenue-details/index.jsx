@@ -156,8 +156,8 @@ const RevenueDetails = () => {
                 <p className="text-2xl text-[#A3AED0]">Doanh thu</p>
               </div>
               <div className="text-center">
-                <p className="text-3xl text-main font-bold">10.531</p>
-                <p className="text-2xl text-[#A3AED0]">{data?.cost}</p>
+                <p className="text-3xl text-main font-bold">{data?.cost}</p>
+                <p className="text-2xl text-[#A3AED0]">Chi phí</p>
               </div>
               <div className="text-center">
                 <p className="text-3xl text-main font-bold">{data?.profit}</p>
