@@ -81,13 +81,17 @@ const DataTable = ({ data }) => {
                 <td>P</td>
                 <td
                   style={{
-                    background: !data?.total?.sum?.profit?.includes("-")
-                      ? "#88F077"
-                      : "#FF0000",
+                    background:
+                      !data?.total?.sum?.profit?.includes("-") &&
+                      data?.total?.sum?.profit !== "0"
+                        ? "#88F077"
+                        : "#FF0000",
                     fontWeight: "bold",
-                    color: data?.total?.sum?.profit?.includes("-")
-                      ? "white"
-                      : "#435071",
+                    color:
+                      data?.total?.sum?.profit?.includes("-") ||
+                      data?.total?.sum?.profit === "0"
+                        ? "white"
+                        : "#435071",
                   }}
                 >
                   {data?.total?.sum?.profit}
@@ -99,11 +103,15 @@ const DataTable = ({ data }) => {
                 ).map((value) => (
                   <td
                     style={{
-                      background: !value?.profit?.includes("-")
-                        ? "#88F077"
-                        : "#FF0000",
+                      background:
+                        !value?.profit?.includes("-") && value?.profit !== "0"
+                          ? "#88F077"
+                          : "#FF0000",
                       fontWeight: "bold",
-                      color: value?.profit?.includes("-") ? "white" : "#435071",
+                      color:
+                        value?.profit?.includes("-") || value?.profit === "0"
+                          ? "white"
+                          : "#435071",
                     }}
                     key={Math.random()}
                   >
@@ -115,13 +123,17 @@ const DataTable = ({ data }) => {
                 <td>%</td>
                 <td
                   style={{
-                    background: !data?.total?.sum?.profit_rate?.includes("-")
-                      ? "#88F077"
-                      : "#FF0000",
+                    background:
+                      !data?.total?.sum?.profit_rate?.includes("-") &&
+                      data?.total?.sum?.profit_rate !== "0"
+                        ? "#88F077"
+                        : "#FF0000",
                     fontWeight: "bold",
-                    color: data?.total?.sum?.profit_rate?.includes("-")
-                      ? "white"
-                      : "#435071",
+                    color:
+                      data?.total?.sum?.profit_rate?.includes("-") ||
+                      data?.total?.sum?.profit_rate === "0"
+                        ? "white"
+                        : "#435071",
                   }}
                 >
                   {data?.total?.sum?.profit_rate}%
@@ -167,12 +179,12 @@ const DataTable = ({ data }) => {
                       <div className="flex gap-1 items-center">
                         <div className="w-2 h-2 rounded bg-[#00ED34]" />
                         <Tooltip title={item?.app_info?.store_id}>
-                          <p className="text-xs text-[#A3AED0] font-bold max-w-48 overflow-hidden truncate">
+                          <p className="text-xs text-[#A3AED0] font-bold text-left w-[10%] overflow-hidden truncate">
                             {item?.app_info?.store_id}
                           </p>
                         </Tooltip>
                         <Tooltip title={item?.app_info?.app_name}>
-                          <p className="text-sm text-main font-bold max-w-48 overflow-hidden truncate">
+                          <p className="text-sm text-main font-bold w-[90%] text-left overflow-hidden truncate">
                             {item?.app_info?.app_name}
                           </p>
                         </Tooltip>
@@ -227,9 +239,11 @@ const DataTable = ({ data }) => {
                             ? "#88F077"
                             : "#FF0000",
                         fontWeight: "bold",
-                        color: item?.sum_profit?.includes("-")
-                          ? "white"
-                          : "#435071",
+                        color:
+                          item?.sum_profit?.includes("-") ||
+                          item?.sum_profit === "0"
+                            ? "white"
+                            : "#435071",
                       }}
                     >
                       {item?.sum_profit}
