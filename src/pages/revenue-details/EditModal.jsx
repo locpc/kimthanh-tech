@@ -6,7 +6,7 @@ import { API_URL } from "../../config";
 
 const EditModal = ({ openEdit, handleCancel, item, setCheckSuceess }) => {
   // const [name, setName] = useState(item?.name || "");
-  const [status, setStatus] = useState(item?.stauts || 0);
+  const [status, setStatus] = useState(item?.status);
   const [rank, setRank] = useState(item?.rank || "A");
 
   const handleEdit = async () => {
