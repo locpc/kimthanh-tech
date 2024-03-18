@@ -19,6 +19,13 @@ const DataTable = ({ data }) => {
     return acc;
   }, {});
 
+  const sortedGroupedByRank = {};
+  Object.keys(groupedByRank)
+    .sort()
+    .forEach((key) => {
+      sortedGroupedByRank[key] = groupedByRank[key];
+    });
+
   const colorToRank = (item) => {
     switch (item) {
       case "A":
@@ -195,7 +202,7 @@ const DataTable = ({ data }) => {
                   </td>
                 ))}
               </tr>
-              {Object.entries(groupedByRank || {}).map(([key, value]) => (
+              {Object.entries(sortedGroupedByRank || {}).map(([key, value]) => (
                 <React.Fragment>
                   <tr className="rank">
                     <td colSpan="100">
