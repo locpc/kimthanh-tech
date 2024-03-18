@@ -6,6 +6,7 @@ import "./styles.css";
 import { api } from "../../provider/api";
 import { API_URL } from "../../config";
 import { useNavigate, useParams } from "react-router-dom";
+import EditModal from "./EditModal";
 
 const TIME_MENU = [
   {
@@ -36,6 +37,8 @@ const RevenueDetails = () => {
   const [data, setData] = useState([]);
   const [value, setValue] = useState(defaultValue());
   const ref = useRef(null);
+  const [openEdit, setOpenEdit] = useState(false);
+  const [checkSuccess, setCheckSuceess] = useState(new Date().getTime());
 
   const handleChangeFilterType = (type) => {
     setActiveFilter(type);
@@ -64,6 +67,13 @@ const RevenueDetails = () => {
     if (data?.cost === 0 && data?.revenue === 0) return true;
     return false;
   };
+  const handleOpenEditModal = () => {
+    setOpenEdit(true);
+  };
+  const handleEdit = () => {};
+  const handleCancel = () => {
+    setOpenEdit(false);
+  };
 
   useEffect(() => {
     (async () => {
@@ -87,19 +97,28 @@ const RevenueDetails = () => {
       }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeFilter, params?.revenueId, value]);
+  }, [activeFilter, params?.revenueId, value, checkSuccess]);
 
   return (
     <div className="bg-[#F4F7FE] h-full">
-      <div className="container">
+      <div className="px-5">
         <div className="flex flex-col lg:flex-row lg:items-center gap-2 justify-between py-4">
           <div className="flex gap-8">
             <div className="flex gap-2 items-center">
-              <div className="w-3 h-3 rounded-md bg-[#00ED34]" />
-              <p className="text-base text-[#A3AED0] font-bold">221</p>
-              <p className="text-lg text-main font-bold">
-                File Recovery - Photo Recovery
+              <div
+                className={`w-3 h-3 rounded ${
+                  data?.app_info?.status === 1 ? "bg-[#00ED34]" : "bg-[#EA0000]"
+                }`}
+              />
+              <p className="text-base text-[#A3AED0] font-bold">
+                {data?.app_info?.store_id}
               </p>
+              <p className="text-lg text-main font-bold">
+                {data?.app_info?.app_name}
+              </p>
+              <div className="cursor-pointer" onClick={handleOpenEditModal}>
+                <img src="/imgs/edit.svg" alt="logo" />
+              </div>
             </div>
           </div>
           <div className="flex gap-4 items-center">
@@ -173,6 +192,17 @@ const RevenueDetails = () => {
           </div>
         )}
       </div>
+      {openEdit && (
+        <EditModal
+          {...{ openEdit, handleEdit, handleCancel, setCheckSuceess }}
+          item={{
+            name: data?.app_info?.app_name,
+            status: data?.app_info?.status,
+            rank: data?.app_info?.rank,
+            app_id: data?.app_info?.app_id,
+          }}
+        />
+      )}
     </div>
   );
 };

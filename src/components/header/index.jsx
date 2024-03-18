@@ -36,7 +36,7 @@ const Header = () => {
   return (
     <div className="h-screen">
       <div className="fixed top-0 w-full shadow-header h-16 bg-white z-10">
-        <div className="flex items-center justify-between container h-full">
+        <div className="flex items-center justify-between px-5 h-full">
           <div className="flex gap-8 items-center">
             <Link to="/">
               <img src="/imgs/logo.svg" alt="logo" />

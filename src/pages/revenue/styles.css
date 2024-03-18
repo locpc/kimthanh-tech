@@ -193,51 +193,81 @@ table {
 th:nth-child(2) {
   left: 18rem;
   z-index: 4;
+  @media only screen and (max-width: 767px) {
+    left: 8rem;
+  }
 }
 
 th:nth-child(3) {
   left: 19.25rem;
   z-index: 4;
+  @media only screen and (max-width: 767px) {
+    left: 9.25rem;
+  }
 }
 
 .sticky-row-1 td:nth-child(2) {
   left: 18rem;
   z-index: 4;
+  @media only screen and (max-width: 767px) {
+    left: 8rem;
+  }
 }
 
 .sticky-row-1 td:nth-child(3) {
   left: 19.25rem;
   z-index: 4;
+  @media only screen and (max-width: 767px) {
+    left: 9.25rem;
+  }
 }
 
 .sticky-row-2 td:nth-child(1) {
   left: 18rem;
   z-index: 4;
+  @media only screen and (max-width: 767px) {
+    left: 8rem;
+  }
 }
 
 .sticky-row-2 td:nth-child(2) {
   left: 19.25rem;
   z-index: 4;
+  @media only screen and (max-width: 767px) {
+    left: 9.25rem;
+  }
 }
 
 .sticky-row-3 td:nth-child(1) {
   left: 18rem;
   z-index: 4;
+  @media only screen and (max-width: 767px) {
+    left: 8rem;
+  }
 }
 
 .sticky-row-3 td:nth-child(2) {
   left: 19.25rem;
   z-index: 4;
+  @media only screen and (max-width: 767px) {
+    left: 9.25rem;
+  }
 }
 
 .sticky-row-4 td:nth-child(1) {
   left: 18rem;
   z-index: 4;
+  @media only screen and (max-width: 767px) {
+    left: 8rem;
+  }
 }
 
 .sticky-row-4 td:nth-child(2) {
   left: 19.25rem;
   z-index: 4;
+  @media only screen and (max-width: 767px) {
+    left: 9.25rem;
+  }
 }
 
 .sticky-left td:nth-child(2) {
@@ -246,6 +276,9 @@ th:nth-child(3) {
   left: 18rem;
   z-index: 4;
   background: white;
+  @media only screen and (max-width: 767px) {
+    left: 8rem;
+  }
 }
 
 .sticky-left td:nth-child(3) {
@@ -254,6 +287,9 @@ th:nth-child(3) {
   left: 19.25rem;
   z-index: 4;
   background: white;
+  @media only screen and (max-width: 767px) {
+    left: 9.25rem;
+  }
 }
 
 .sticky-left-1 td:nth-child(1) {
@@ -262,6 +298,9 @@ th:nth-child(3) {
   left: 18rem;
   z-index: 4;
   background: white;
+  @media only screen and (max-width: 767px) {
+    left: 8rem;
+  }
 }
 
 .sticky-left-1 td:nth-child(2) {
@@ -270,4 +309,20 @@ th:nth-child(3) {
   left: 19.25rem;
   z-index: 4;
   background: white;
+  @media only screen and (max-width: 767px) {
+    left: 9.25rem;
+  }
+}
+
+.custom-tr {
+  display: table-row;
+  @media only screen and (min-width: 768px) {
+    display: none;
+  }
+}
+
+.rank td {
+  @media only screen and (max-width: 767px) {
+    border: none;
+  }
 }
