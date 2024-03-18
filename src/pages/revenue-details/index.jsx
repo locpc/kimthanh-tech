@@ -106,7 +106,7 @@ const RevenueDetails = () => {
           <div className="flex gap-8">
             <div className="flex gap-2 items-center">
               <div
-                className={`w-3 h-3 rounded ${
+                className={`w-3 h-3 rounded-2xl ${
                   data?.app_info?.status === 1 ? "bg-[#00ED34]" : "bg-[#EA0000]"
                 }`}
               />
