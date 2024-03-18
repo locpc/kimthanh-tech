@@ -20,7 +20,7 @@ const DataTable = ({ data }) => {
   }, {});
 
   const sortedGroupedByRank = {};
-  Object.keys(groupedByRank)
+  Object.keys(groupedByRank || {})
     .sort()
     .forEach((key) => {
       sortedGroupedByRank[key] = groupedByRank[key];
