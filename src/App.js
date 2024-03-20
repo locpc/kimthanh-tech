@@ -8,6 +8,7 @@ import Header from "./components/header";
 import Revenue from "./pages/revenue";
 import RevenueDetails from "./pages/revenue-details";
 import ChangePassword from "./pages/change-password";
+import AddApp from "./pages/add-app";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           </Route>
           <Route path="sign-in" element={<SignIn />} />
           <Route path="change-password" element={<ChangePassword />} />
+          <Route path="add-app" element={<AddApp />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

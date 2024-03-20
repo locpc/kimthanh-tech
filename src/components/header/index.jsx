@@ -60,6 +60,7 @@ const Header = () => {
             <Button
               type="primary"
               className="flex gap-1 bg-main hover:bg-main rounded-2xl text-sm text-white"
+              onClick={() => navigate("/add-app")}
             >
               <img src="/imgs/add-app-icon.svg" alt="icon" />
               Add app
