@@ -7,6 +7,7 @@ import SignIn from "./pages/sign-in";
 import Header from "./components/header";
 import Revenue from "./pages/revenue";
 import RevenueDetails from "./pages/revenue-details";
+import ChangePassword from "./pages/change-password";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             ></Route>
           </Route>
           <Route path="sign-in" element={<SignIn />} />
+          <Route path="change-password" element={<ChangePassword />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

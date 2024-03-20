@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import DataTable from "./DataTable";
 import { api } from "../../provider/api";
 import { API_URL } from "../../config";
+import { useSearchParams } from "react-router-dom";
 
 const TIME_MENU = [
   {
@@ -23,9 +24,10 @@ const defaultValue = () => {
 };
 
 const Revenue = () => {
-  const [activeFilter, setActiveFilter] = useState("month");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [activeFilter, setActiveFilter] = useState(searchParams.get("filter_type") || "month");
   const [openDatePicker, setOpenDatePicker] = useState(true);
-  const [value, setValue] = useState(defaultValue());
+  const [value, setValue] = useState(searchParams.get("value") || defaultValue());
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const ref = useRef(null);
@@ -63,6 +65,7 @@ const Revenue = () => {
         );
         if (res && res?.data?.data) {
           setData(res?.data?.data);
+          setSearchParams({ filter_type: activeFilter, value });
         } else {
           setData([]);
         }

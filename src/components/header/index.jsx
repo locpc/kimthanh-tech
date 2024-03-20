@@ -65,7 +65,14 @@ const Header = () => {
               Add app
             </Button>
             <div className="flex gap-2 items-center">
-              <img src="/imgs/avatar.png" width={40} height={40} alt="avatar" />
+              <Link to="/change-password">
+                <img
+                  src="/imgs/avatar.png"
+                  width={40}
+                  height={40}
+                  alt="avatar"
+                />
+              </Link>
               <div>
                 <p className="text-sm text-[#525252] font-bold">Anh Nguyen</p>
                 <p
@@ -117,6 +124,12 @@ const Header = () => {
             ))}
             <div className="text-2xl font-medium text-black py-3 border-b border-b-extra-blue">
               Add app
+            </div>
+            <div
+              className="text-2xl font-medium text-black py-3 border-b border-b-extra-blue"
+              onClick={() => navigate("/change-password")}
+            >
+              Change password
             </div>
             <div
               className="text-2xl font-medium text-black py-3 border-b border-b-extra-blue"
