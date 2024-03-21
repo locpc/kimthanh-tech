@@ -241,7 +241,7 @@ const DataTable = ({ data }) => {
                           rowSpan={4}
                           className="sticky text-center px-1 cursor-pointer hover:!bg-[#ebe9e9]"
                           onClick={() =>
-                            onHandleDetails(item?.app_info?.app_id)
+                            onHandleDetails(item?.app_info?.id)
                           }
                         >
                           <div className="hidden md:flex gap-1 items-center">
