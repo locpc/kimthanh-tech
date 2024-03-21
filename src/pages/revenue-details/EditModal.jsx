@@ -6,19 +6,26 @@ import { API_URL } from "../../config";
 
 const EditModal = ({ openEdit, handleCancel, item, setCheckSuceess }) => {
   // const [name, setName] = useState(item?.name || "");
+  const [appID, setAppID] = useState(item?.app_id || "");
+  const [appName, setAppName] = useState(item?.app_name || "");
+  const [packageName, setPackageName] = useState(item?.package_name || "");
+  const [vps, setVps] = useState(item?.vps_ip || "");
   const [status, setStatus] = useState(item?.status);
   const [rank, setRank] = useState(item?.rank || "A");
 
   const handleEdit = async () => {
-    if (item?.app_id) {
+    if (item?.id) {
       try {
         const payload = {
-          // name,
+          app_id: appID,
+          app_name: appName,
+          package_name: packageName,
+          vps_ip: vps,
           status,
           rank,
         };
         const res = await api.post(
-          `${API_URL}/app/update/${item?.app_id}`,
+          `${API_URL}/app/update/${item?.id}`,
           payload
         );
         if (res && res?.data) {
@@ -41,14 +48,38 @@ const EditModal = ({ openEdit, handleCancel, item, setCheckSuceess }) => {
       onOk={handleEdit}
       onCancel={handleCancel}
     >
-      {/* <div className="mt-4">
-        <p className="mb-2 text-base">Name</p>
+      <div className="mt-4">
+        <p className="mb-2 text-base">App ID</p>
         <Input
-          name="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={appID}
+          style={{ width: "100%" }}
+          onChange={(e) => setAppID(e.target.value)}
         />
-      </div> */}
+      </div>
+      <div className="mt-4">
+        <p className="mb-2 text-base">App Name</p>
+        <Input
+          value={appName}
+          style={{ width: "100%" }}
+          onChange={(e) => setAppName(e.target.value)}
+        />
+      </div>
+      <div className="mt-4">
+        <p className="mb-2 text-base">Package Name</p>
+        <Input
+          value={packageName}
+          style={{ width: "100%" }}
+          onChange={(e) => setPackageName(e.target.value)}
+        />
+      </div>
+      <div className="mt-4">
+        <p className="mb-2 text-base">VPS ID</p>
+        <Input
+          value={vps}
+          style={{ width: "100%" }}
+          onChange={(e) => setVps(e.target.value)}
+        />
+      </div>
       <div className="mt-4">
         <p className="mb-2 text-base">Rank</p>
         <Select

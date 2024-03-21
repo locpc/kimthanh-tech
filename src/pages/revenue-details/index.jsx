@@ -195,12 +195,7 @@ const RevenueDetails = () => {
       {openEdit && (
         <EditModal
           {...{ openEdit, handleEdit, handleCancel, setCheckSuceess }}
-          item={{
-            name: data?.app_info?.app_name,
-            status: data?.app_info?.status,
-            rank: data?.app_info?.rank,
-            app_id: data?.app_info?.app_id,
-          }}
+          item={data?.app_info}
         />
       )}
     </div>
