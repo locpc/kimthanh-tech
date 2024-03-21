@@ -9,20 +9,27 @@ import { api } from "../../provider/api";
 
 const ChangePassword = () => {
   const navigate = useNavigate();
-  const { setItem } = useLocalStorage();
+  const { user } = useAuth();
+  const { getItem } = useLocalStorage();
   const initialValues = {
+    // username: user || getItem("user"),
     oldPassword: "",
     newPassword: "",
+  };
+
+  const onCancel = () => {
+    navigate("/revenue");
   };
 
   const onChangePassword = async (values) => {
     const { oldPassword, newPassword } = values;
     try {
       const res = await api.post(`${API_URL}/auth/change-pass`, {
+        // username,
         password: oldPassword,
         password_confirmation: newPassword,
       });
-      if(res && res.data) {
+      if (res && res.data) {
         message.success("Change password successfully");
         navigate("/revenue");
       } else {
@@ -47,6 +54,22 @@ const ChangePassword = () => {
             initialValues={initialValues}
             onFinish={onChangePassword}
           >
+            {/* <div>
+              <p className="text-sm text-primary font-medium">
+                Username<span className="text-violet">*</span>
+              </p>
+              <Form.Item
+                name="username"
+                rules={[
+                  { required: true, message: "Please input username!" },
+                ]}
+              >
+                <Input
+                  className="mt-3 text-sm text-secondary h-12 md:w-[410px] pl-6 rounded-2xl border-secondary"
+                  placeholder="Username"
+                />
+              </Form.Item>
+            </div> */}
             <div>
               <p className="text-sm text-primary font-medium">
                 Password<span className="text-violet">*</span>
@@ -81,12 +104,20 @@ const ChangePassword = () => {
                 />
               </Form.Item>
             </div>
-            <Button
-              htmlType="submit"
-              className="mt-8 mb-2 w-full h-12 bg-main rounded-2xl text-sm text-white font-bold"
-            >
-              Save
-            </Button>
+            <div className="flex gap-4">
+              <Button
+                onClick={onCancel}
+                className="mt-8 mb-2 w-full h-12 bg-white rounded-2xl text-sm text-black font-bold"
+              >
+                Cancel
+              </Button>
+              <Button
+                htmlType="submit"
+                className="mt-8 mb-2 w-full h-12 bg-main rounded-2xl text-sm text-white font-bold"
+              >
+                Save
+              </Button>
+            </div>
           </Form>
         </div>
       </div>

@@ -13,6 +13,10 @@ const AddApp = () => {
   const [status, setStatus] = useState(1);
   const [rank, setRank] = useState("A");
 
+  const onCancel = () => {
+    navigate("/revenue");
+  }
+
   const onAddApp = async () => {
     if (!appID) {
       alert("The app ID field is required.");
@@ -123,12 +127,20 @@ const AddApp = () => {
             ]}
           />
         </div>
-        <Button
-          onClick={onAddApp}
-          className="mt-8 mb-2 w-full h-12 bg-main rounded-2xl text-sm text-white font-bold"
-        >
-          Save
-        </Button>
+        <div className="flex gap-4">
+          <Button
+            onClick={onCancel}
+            className="mt-8 mb-2 w-full h-12 bg-white rounded-2xl text-sm text-black font-bold"
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={onAddApp}
+            className="mt-8 mb-2 w-full h-12 bg-main rounded-2xl text-sm text-white font-bold"
+          >
+            Save
+          </Button>
+        </div>
       </div>
     </div>
   );

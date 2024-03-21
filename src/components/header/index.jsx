@@ -3,6 +3,7 @@ import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import "./styles.css";
 import { useEffect, useState } from "react";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { useAuth } from "../../provider/auth";
 
 const HEADER_MENU = [
   { url: "/", value: "Dashboard" },
@@ -11,6 +12,7 @@ const HEADER_MENU = [
 
 const Header = () => {
   const location = useLocation();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const { getItem, removeItem } = useLocalStorage();
   const [hamburger, setHamburger] = useState(false);
@@ -24,14 +26,14 @@ const Header = () => {
     navigate("/sign-in");
   };
 
-  useEffect(() => {
-    const token = getItem("token");
-    console.log(token);
-    if (!token) {
-      navigate("/sign-in");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   const token = getItem("token");
+  //   console.log(token);
+  //   if (!token) {
+  //     navigate("/sign-in");
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   return (
     <div className="h-screen">
@@ -66,16 +68,14 @@ const Header = () => {
               Add app
             </Button>
             <div className="flex gap-2 items-center">
-              <Link to="/change-password">
-                <img
-                  src="/imgs/avatar.png"
-                  width={40}
-                  height={40}
-                  alt="avatar"
-                />
-              </Link>
+              <img src="/imgs/avatar.png" width={40} height={40} alt="avatar" />
               <div>
-                <p className="text-sm text-[#525252] font-bold">Anh Nguyen</p>
+                <p
+                  className="text-sm text-[#525252] font-bold cursor-pointer"
+                  onClick={() => navigate("/change-password")}
+                >
+                  {user || getItem("user")}
+                </p>
                 <p
                   className="text-sm text-[#A3AED0] cursor-pointer"
                   onClick={handleLogOut}
@@ -123,7 +123,10 @@ const Header = () => {
                 </Link>
               </div>
             ))}
-            <div className="text-2xl font-medium text-black py-3 border-b border-b-extra-blue">
+            <div
+              className="text-2xl font-medium text-black py-3 border-b border-b-extra-blue"
+              onClick={() => navigate("add-app")}
+            >
               Add app
             </div>
             <div

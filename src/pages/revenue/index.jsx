@@ -25,9 +25,13 @@ const defaultValue = () => {
 
 const Revenue = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [activeFilter, setActiveFilter] = useState(searchParams.get("filter_type") || "month");
+  const [activeFilter, setActiveFilter] = useState(
+    searchParams.get("filter_type") || "month"
+  );
   const [openDatePicker, setOpenDatePicker] = useState(true);
-  const [value, setValue] = useState(searchParams.get("value") || defaultValue());
+  const [value, setValue] = useState(
+    searchParams.get("value") || defaultValue()
+  );
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const ref = useRef(null);
@@ -54,6 +58,21 @@ const Revenue = () => {
     const year = new Date().getFullYear();
     if (month < 10) return `0${month}/${year}`;
     return `${month}/${year}`;
+  };
+
+  const defaults = () => {
+    const type = searchParams.get("type" || "month");
+    const value = searchParams.get("value") || defaultTime();
+    console.log(value);
+    if (value.includes("-")) {
+      const temp = value.split("-");
+      return [`${temp[1]}/${temp[0]}`, "MM/YYYY"];
+    }
+    if (type === "week") {
+      return [defaultTime(), "MM/YYYY"]
+      // setSearchParams({});
+    }
+    return [value, "YYYY"];
   };
 
   useEffect(() => {

@@ -175,7 +175,7 @@ const DataTable = ({ data }) => {
                 >
                   {data?.total?.sum?.profit_rate === "0"
                     ? "-"
-                    : `${data?.total?.sum?.profit_rate}$`}
+                    : `${data?.total?.sum?.profit_rate}%`}
                 </td>
                 {Object.values(
                   data?.total?.sum_date_report ||
@@ -303,7 +303,7 @@ const DataTable = ({ data }) => {
                         <td>
                           {item?.sum_revenue === "0"
                             ? "-"
-                            : item?.sum_revenuent}
+                            : item?.sum_revenue}
                         </td>
                         {Object.values(item?.date_report || {}).map((value) => (
                           <td key={Math.random()}>
