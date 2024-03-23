@@ -19,8 +19,9 @@ const AuthProvider = ({ children }) => {
       if (res && res?.data?.access_token) {
         const token = res?.data?.access_token;
         setItem("token", token);
-        setUser(res?.data?.user?.name)
+        setUser({ user: res?.data?.user?.name, role: res?.data?.user?.role });
         setItem("user", res?.data?.user?.name);
+        setItem("role", res?.data?.user?.role);
         setToken(token);
         return token;
       }

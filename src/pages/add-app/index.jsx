@@ -1,8 +1,10 @@
 import { Button, Input, Modal, Select, message } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { api } from "../../provider/api";
 import { API_URL } from "../../config";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../provider/auth";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 const AddApp = () => {
   const navigate = useNavigate();
@@ -12,10 +14,13 @@ const AddApp = () => {
   const [vps, setVps] = useState("");
   const [status, setStatus] = useState(1);
   const [rank, setRank] = useState("A");
+  const { user } = useAuth();
+  const { getItem, removeItem } = useLocalStorage();
+  const role = getItem("role");
 
   const onCancel = () => {
     navigate("/revenue");
-  }
+  };
 
   const onAddApp = async () => {
     if (!appID) {
@@ -62,6 +67,15 @@ const AddApp = () => {
       alert(error?.response?.data?.app_id || "Add app faild");
     }
   };
+
+  useEffect(() => {
+    if (user?.role !== 1 && Number(role) !== 1) {
+      // message.warning("Bạn không có quyền truy cập");
+      navigate("/revenue");
+      return;
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [role, user?.role]);
 
   return (
     <div className="flex flex-col justify-center items-center w-full h-screen bg-[#F4F7FE]">

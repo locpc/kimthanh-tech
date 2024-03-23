@@ -7,6 +7,8 @@ import { api } from "../../provider/api";
 import { API_URL } from "../../config";
 import { useNavigate, useParams } from "react-router-dom";
 import EditModal from "./EditModal";
+import { useAuth } from "../../provider/auth";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 const TIME_MENU = [
   {
@@ -31,6 +33,8 @@ const defaultValue = () => {
 const RevenueDetails = () => {
   const params = useParams();
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const { getItem, removeItem } = useLocalStorage();
   const [activeFilter, setActiveFilter] = useState("month");
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -116,9 +120,11 @@ const RevenueDetails = () => {
               <p className="text-lg text-main font-bold">
                 {data?.app_info?.app_name}
               </p>
-              <div className="cursor-pointer" onClick={handleOpenEditModal}>
-                <img src="/imgs/edit.svg" alt="logo" />
-              </div>
+              {(user?.role === 1 || getItem("role") === 1) && (
+                <div className="cursor-pointer" onClick={handleOpenEditModal}>
+                  <img src="/imgs/edit.svg" alt="logo" />
+                </div>
+              )}
             </div>
           </div>
           <div className="flex gap-4 items-center">

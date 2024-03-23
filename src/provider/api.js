@@ -23,11 +23,7 @@ api.interceptors.response.use(
     // const location = useLocation();
     if (error?.response?.data?.statusCode === 401) {
       localStorage.removeItem("token");
-      // if (location.pathname.includes("admin")) {
-      //   navigate("/admin/sign-in");
-      //   return;
-      // }
-      // navigate("/sign-in");
+      window.location.href = "/sign-in"
     }
     return Promise.reject(error);
   }

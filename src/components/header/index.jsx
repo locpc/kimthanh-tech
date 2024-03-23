@@ -59,14 +59,16 @@ const Header = () => {
             ))}
           </div>
           <div className="hidden lg:flex gap-8 items-center">
-            <Button
-              type="primary"
-              className="flex gap-1 bg-main hover:bg-main rounded-2xl text-sm text-white"
-              onClick={() => navigate("/add-app")}
-            >
-              <img src="/imgs/add-app-icon.svg" alt="icon" />
-              Add app
-            </Button>
+            {(user?.role === 1 || Number(getItem("role")) === 1) && (
+              <Button
+                type="primary"
+                className="flex gap-1 bg-main hover:bg-main rounded-2xl text-sm text-white"
+                onClick={() => navigate("/add-app")}
+              >
+                <img src="/imgs/add-app-icon.svg" alt="icon" />
+                Add app
+              </Button>
+            )}
             <div className="flex gap-2 items-center">
               <img src="/imgs/avatar.png" width={40} height={40} alt="avatar" />
               <div>
@@ -74,7 +76,7 @@ const Header = () => {
                   className="text-sm text-[#525252] font-bold cursor-pointer"
                   onClick={() => navigate("/change-password")}
                 >
-                  {user || getItem("user")}
+                  {user?.user || getItem("user")}
                 </p>
                 <p
                   className="text-sm text-[#A3AED0] cursor-pointer"
@@ -123,12 +125,14 @@ const Header = () => {
                 </Link>
               </div>
             ))}
-            <div
-              className="text-2xl font-medium text-black py-3 border-b border-b-extra-blue"
-              onClick={() => navigate("add-app")}
-            >
-              Add app
-            </div>
+            {(user?.role === 1 || Number(getItem("role")) === 1) && (
+              <div
+                className="text-2xl font-medium text-black py-3 border-b border-b-extra-blue"
+                onClick={() => navigate("add-app")}
+              >
+                Add app
+              </div>
+            )}
             <div
               className="text-2xl font-medium text-black py-3 border-b border-b-extra-blue"
               onClick={() => navigate("/change-password")}
