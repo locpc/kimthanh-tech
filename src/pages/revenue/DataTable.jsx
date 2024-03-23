@@ -58,7 +58,7 @@ const DataTable = ({ data }) => {
                     data?.total?.sum_month_report ||
                     []
                 ).map((value) => (
-                  <th key={Math.random()}>{value}</th>
+                  <th key={Math.random()} className="custom-th">{value}</th>
                 ))}
               </tr>
             </thead>

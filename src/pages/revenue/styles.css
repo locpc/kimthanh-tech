@@ -180,6 +180,10 @@ th:first-child {
   z-index: 2;
 }
 
+.custom-th {
+  z-index: 4;
+}
+
 tr:last-child td {
   border-bottom: none;
 }
@@ -192,7 +196,7 @@ table {
 
 th:nth-child(2) {
   left: 18rem;
-  z-index: 4;
+  z-index: 5;
   @media only screen and (max-width: 767px) {
     left: 8rem;
   }
@@ -316,9 +320,16 @@ th:nth-child(3) {
 
 .custom-tr {
   display: table-row;
+  position: relative;
   @media only screen and (min-width: 768px) {
     display: none;
   }
+}
+
+.custom-tr div {
+  position: sticky;
+  left: 0px;
+  width: fit-content;
 }
 
 .rank td {
