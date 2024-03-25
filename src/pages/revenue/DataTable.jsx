@@ -203,7 +203,7 @@ const DataTable = ({ data }) => {
                 ))}
               </tr>
               {Object.entries(sortedGroupedByRank || {}).map(([key, value]) => (
-                <React.Fragment>
+                <React.Fragment key={Math.random()}>
                   <tr className="rank">
                     <td colSpan="100">
                       <div
@@ -215,7 +215,7 @@ const DataTable = ({ data }) => {
                       </div>
                     </td>
                   </tr>
-                  {value?.map((item) => (
+                  {value?.map((item, index) => (
                     <React.Fragment key={item.app_id}>
                       <tr className="custom-tr">
                         <td colSpan="100">
@@ -386,6 +386,9 @@ const DataTable = ({ data }) => {
                               : `${value?.profit_rate}%`}
                           </td>
                         ))}
+                      </tr>
+                      <tr className={`custom-last-app ${index === value?.length - 1 ? "none" : ""}`}>
+                        <td colSpan="100"></td>
                       </tr>
                     </React.Fragment>
                   ))}

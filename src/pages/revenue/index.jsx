@@ -32,6 +32,7 @@ const Revenue = () => {
   const [value, setValue] = useState(
     searchParams.get("value") || defaultValue()
   );
+  const [exchangeRate, setExchangeRate] = useState({});
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const ref = useRef(null);
@@ -69,7 +70,7 @@ const Revenue = () => {
       return [`${temp[1]}/${temp[0]}`, "MM/YYYY"];
     }
     if (type === "week") {
-      return [defaultTime(), "MM/YYYY"]
+      return [defaultTime(), "MM/YYYY"];
       // setSearchParams({});
     }
     return [value, "YYYY"];
@@ -95,10 +96,31 @@ const Revenue = () => {
     })();
   }, [activeFilter, value]);
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await api.get(`${API_URL}/settings/get-exchange-rate`);
+        if (res && res.data) {
+          let usd_to_vnd = "xx,xxx";
+          let jpy_to_vnd = "xx,xxx";
+          for (const item of res.data?.data) {
+            if (item?.key === "usd_to_vnd") {
+              usd_to_vnd = item?.value;
+            }
+            if (item?.key === "jpy_to_vnd") {
+              jpy_to_vnd = item?.value;
+            }
+          }
+          setExchangeRate({ usd_to_vnd, jpy_to_vnd });
+        }
+      } catch (error) {}
+    })();
+  }, []);
+
   return (
     <div className="bg-[#F4F7FE] h-full">
       <div className="">
-        <div className="flex items-center justify-between py-4 px-5">
+        <div className="flex items-center justify-between pt-4 pb-2 px-5">
           <div className="flex gap-8">
             <p className="text-xl text-main font-semibold">Doanh thu</p>
             <div className="hidden lg:flex gap-4 py-[2px] bg-white rounded-2xl">
@@ -138,6 +160,9 @@ const Revenue = () => {
               />
             </div>
           </div>
+        </div>
+        <div className="flex justify-end px-5">
+          <p className="text-xs text-[#939393] font-normal">{`Tỷ giá: USD: ${exchangeRate?.usd_to_vnd} - JPY: ${exchangeRate?.jpy_to_vnd}`}</p>
         </div>
         <div className="px-5">
           {loading ? (
