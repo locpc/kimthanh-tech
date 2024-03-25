@@ -21,9 +21,12 @@ api.interceptors.response.use(
   (error) => {
     // const navigate = useNavigate();
     // const location = useLocation();
-    if (error?.response?.status === 401) {
+    if (
+      error?.response?.status === 401 &&
+      window.location.pathname !== "/sign-in"
+    ) {
       localStorage.removeItem("token");
-      window.location.href = "/sign-in"
+      window.location.href = "/sign-in";
     }
     return Promise.reject(error);
   }
