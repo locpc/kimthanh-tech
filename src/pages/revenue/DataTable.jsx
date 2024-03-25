@@ -202,7 +202,7 @@ const DataTable = ({ data }) => {
                   </td>
                 ))}
               </tr>
-              <tr className="h-2 custom-split">
+              <tr className="h-[5px] custom-split">
                 <td colSpan="100"></td>
               </tr>
               {Object.entries(sortedGroupedByRank || {}).map(([key, value]) => (
