@@ -120,7 +120,7 @@ const RevenueDetails = () => {
               <p className="text-lg text-main font-bold">
                 {data?.app_info?.app_name}
               </p>
-              {(user?.role === 1 || getItem("role") === 1) && (
+              {(user?.role === 1 || Number(getItem("role")) === 1) && (
                 <div className="cursor-pointer" onClick={handleOpenEditModal}>
                   <img src="/imgs/edit.svg" alt="logo" />
                 </div>

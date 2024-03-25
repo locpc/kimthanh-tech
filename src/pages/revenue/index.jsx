@@ -119,7 +119,7 @@ const Revenue = () => {
 
   return (
     <div className="bg-[#F4F7FE] h-full">
-      <div className="">
+      <div className="page">
         <div className="flex items-center justify-between pt-4 pb-2 px-5">
           <div className="flex gap-8">
             <p className="text-xl text-main font-semibold">Doanh thu</p>

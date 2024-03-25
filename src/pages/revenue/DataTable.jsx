@@ -202,6 +202,9 @@ const DataTable = ({ data }) => {
                   </td>
                 ))}
               </tr>
+              <tr className="h-2 custom-split">
+                <td colSpan="100"></td>
+              </tr>
               {Object.entries(sortedGroupedByRank || {}).map(([key, value]) => (
                 <React.Fragment key={Math.random()}>
                   <tr className="rank">

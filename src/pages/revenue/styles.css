@@ -24,10 +24,6 @@
   border-top: 1px solid #c5c5c5;
 }
 
-.custom-table tr:nth-child(6) td {
-  border-top: 1px solid #c5c5c5;
-}
-
 .custom-table td:last-child {
   border-right: none;
 }
@@ -44,7 +40,7 @@
   border-radius: 8px;
   overflow: hidden;
   white-space: nowrap;
-  max-height: 78vh;
+  max-height: calc(100vh - 11rem);
 }
 
 th {
@@ -352,4 +348,13 @@ th:nth-child(3) {
 .none {
   display: none;
   height: 0px !important;
+}
+
+.custom-split td {
+  position: sticky;
+  top: 114px;
+  left: 0;
+  z-index: 5;
+  background: white;
+  border: none;
 }
