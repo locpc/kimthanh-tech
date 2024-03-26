@@ -32,7 +32,10 @@ const Revenue = () => {
   const [value, setValue] = useState(
     searchParams.get("value") || defaultValue()
   );
-  const [exchangeRate, setExchangeRate] = useState({});
+  const [exchangeRate, setExchangeRate] = useState({
+    usd_to_vnd: "xx,xxx",
+    jpy_to_vnd: "xx,xxx",
+  });
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const ref = useRef(null);
@@ -46,7 +49,7 @@ const Revenue = () => {
         const value = getTempValue.split('"');
         setValue(value[1]);
       }
-    }, 300);
+    }, 3000);
   };
   const handleChangeFilter = () => {
     setOpenDatePicker(!openDatePicker);
@@ -57,43 +60,62 @@ const Revenue = () => {
   const defaultTime = () => {
     const month = new Date().getMonth() + 1;
     const year = new Date().getFullYear();
-    if (month < 10) return `0${month}/${year}`;
-    return `${month}/${year}`;
+    if (month < 10) return `${year}-0${month}`;
+    return `${year}-${month}`;
   };
 
   const defaults = () => {
-    const type = searchParams.get("type" || "month");
+    const type = searchParams.get("filter_type") || "month";
     const value = searchParams.get("value") || defaultTime();
-    console.log(value);
-    if (value.includes("-")) {
-      const temp = value.split("-");
-      return [`${temp[1]}/${temp[0]}`, "MM/YYYY"];
+    if (type === "month") {
+      const temp = value.replace("-", "/");
+      return [temp, "month"];
     }
     if (type === "week") {
-      return [defaultTime(), "MM/YYYY"];
+      return [value, "week"];
       // setSearchParams({});
     }
-    return [value, "YYYY"];
+    return [value, "year"];
+  };
+
+  const checkValue = () => {
+    const type = searchParams.get("filter_type") || "month";
+    const value = searchParams.get("value") || defaultTime();
+    if (
+      type === "week" &&
+      (value.includes("st") ||
+        value.includes("nd") ||
+        value.includes("rd") ||
+        value.includes("th"))
+    )
+      return true;
+    if (type === "month" && value.includes("-") && value.length === 7)
+      return true;
+    if (type === "year" && value.length === 4) return true;
+    return false;
   };
 
   useEffect(() => {
     (async () => {
-      setLoading(true);
       try {
-        const res = await api.get(
-          `${API_URL}/report?filter_type=${activeFilter}&&value=${value}`
-        );
-        if (res && res?.data?.data) {
-          setData(res?.data?.data);
-          setSearchParams({ filter_type: activeFilter, value });
-        } else {
-          setData([]);
+        setLoading(true);
+        if (checkValue()) {
+          const res = await api.get(
+            `${API_URL}/report?filter_type=${activeFilter}&&value=${value}`
+          );
+          if (res && res?.data?.data) {
+            setData(res?.data?.data);
+          } else {
+            setData([]);
+          }
         }
       } catch (error) {
         console.log(error);
       }
       setLoading(false);
+      setSearchParams({ filter_type: activeFilter, value });
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeFilter, value]);
 
   useEffect(() => {
@@ -140,7 +162,7 @@ const Revenue = () => {
           <div className="flex gap-2">
             <div className="block lg:hidden">
               <Select
-                defaultValue="month"
+                value={activeFilter}
                 style={{ width: 120 }}
                 onChange={handleChangeFilterType}
                 options={TIME_MENU}
@@ -151,9 +173,9 @@ const Revenue = () => {
             <div onClick={handleChangeFilter}>
               <DatePicker
                 ref={ref}
-                defaultValue={dayjs(defaultTime(), "MM/YYYY")}
+                defaultValue={dayjs(defaults()[0])}
                 onChange={onChangeTime}
-                picker={activeFilter}
+                picker={defaults()[1]}
                 suffixIcon={<img src="/imgs/selected-time.svg" alt="time" />}
                 className="bg-[#D1E9FF] text-sm text-main font-medium border-none rounded-2xl px-2 lg:px-4 py-[6px]"
                 locale={locale}
