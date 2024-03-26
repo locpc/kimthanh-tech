@@ -111,7 +111,7 @@ thead th:first-child {
 .custom-table .sticky-row-2 td {
   position: -webkit-sticky;
   position: sticky;
-  top: 46.5px;
+  top: 46px;
   z-index: 2;
   background-color: white;
 }
@@ -127,7 +127,7 @@ thead th:first-child {
 .custom-table .sticky-row-4 td {
   position: -webkit-sticky;
   position: sticky;
-  top: 91.5px;
+  top: 92px;
   z-index: 2;
   background-color: white;
 }
@@ -352,9 +352,13 @@ th:nth-child(3) {
 
 .custom-split td {
   position: sticky;
-  top: 114px;
+  top: 115px;
   left: 0;
   z-index: 5;
   background: white;
   border: none;
+}
+
+tr {
+  height: 23px;
 }

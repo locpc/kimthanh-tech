@@ -223,7 +223,7 @@ const DataTable = ({ data }) => {
                       <tr className="custom-tr">
                         <td colSpan="100">
                           <div className="flex md:hidden px-2 gap-1 items-center">
-                            <div
+                            <p
                               className={`w-2 h-2 rounded ${
                                 item?.app_info?.status === 1
                                   ? "bg-[#00ED34]"
