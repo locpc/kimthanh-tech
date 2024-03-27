@@ -206,7 +206,7 @@ table {
   table-layout: fixed;
 }
 
-th:nth-child(2) {
+.empty-header {
   left: 18rem;
   z-index: 5;
   @media only screen and (max-width: 767px) {
@@ -214,7 +214,7 @@ th:nth-child(2) {
   }
 }
 
-th:nth-child(3) {
+.sum-header {
   left: 19.25rem;
   z-index: 5;
   border-right: 2px solid #c5c5c5;

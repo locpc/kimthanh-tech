@@ -6,6 +6,12 @@ import DataTable from "./DataTable";
 import { api } from "../../provider/api";
 import { API_URL } from "../../config";
 import { useSearchParams } from "react-router-dom";
+import updateLocale from "dayjs/plugin/updateLocale";
+
+dayjs.extend(updateLocale);
+dayjs.updateLocale("en", {
+  weekStart: 1,
+});
 
 const TIME_MENU = [
   {
@@ -69,7 +75,7 @@ const Revenue = () => {
     }
     return [value, "year"];
   };
-  console.log(defaults())
+  console.log(defaults());
 
   const checkValue = () => {
     if (
@@ -169,7 +175,7 @@ const Revenue = () => {
                 picker={defaults()[1]}
                 suffixIcon={<img src="/imgs/selected-time.svg" alt="time" />}
                 className="bg-[#D1E9FF] text-sm text-main font-medium border-none rounded-2xl px-2 lg:px-4 py-[6px]"
-                locale={locale}
+                // locale={locale}
               />
             </div>
           </div>
