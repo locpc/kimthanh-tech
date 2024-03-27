@@ -20,6 +20,18 @@
   text-align: center;
 }
 
+.custom-table td:hover {
+  opacity: 0.75;
+  cursor: pointer;
+}
+.custom-table tr .sticky:hover,
+.sticky-row-1 td:hover,
+.sticky-row-2 td:hover,
+.sticky-row-3 td:hover,
+.sticky-row-4 td:hover {
+  opacity: 1;
+}
+
 .custom-table tr:first-child td {
   border-top: 1px solid #c5c5c5;
 }
