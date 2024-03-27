@@ -57,49 +57,40 @@ const Revenue = () => {
   const onChangeTime = (date, dateString) => {
     setValue(dateString);
   };
-  const defaultTime = () => {
-    const month = new Date().getMonth() + 1;
-    const year = new Date().getFullYear();
-    if (month < 10) return `${year}-0${month}`;
-    return `${year}-${month}`;
-  };
 
   const defaults = () => {
-    const type = searchParams.get("filter_type") || "month";
-    const value = searchParams.get("value") || defaultTime();
-    if (type === "month") {
+    if (activeFilter === "month") {
       const temp = value.replace("-", "/");
       return [temp, "month"];
     }
-    if (type === "week") {
+    if (activeFilter === "week") {
       return [value, "week"];
       // setSearchParams({});
     }
     return [value, "year"];
   };
+  console.log(defaults())
 
   const checkValue = () => {
-    const type = searchParams.get("filter_type") || "month";
-    const value = searchParams.get("value") || defaultTime();
     if (
-      type === "week" &&
+      activeFilter === "week" &&
       (value.includes("st") ||
         value.includes("nd") ||
         value.includes("rd") ||
         value.includes("th"))
     )
       return true;
-    if (type === "month" && value.includes("-") && value.length === 7)
+    if (activeFilter === "month" && value.includes("-") && value.length === 7)
       return true;
-    if (type === "year" && value.length === 4) return true;
+    if (activeFilter === "year" && value.length === 4) return true;
     return false;
   };
 
   useEffect(() => {
     (async () => {
       try {
-        setLoading(true);
         if (checkValue()) {
+          setLoading(true);
           const res = await api.get(
             `${API_URL}/report?filter_type=${activeFilter}&&value=${value}`
           );
