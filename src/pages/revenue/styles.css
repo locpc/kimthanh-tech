@@ -32,6 +32,10 @@
   opacity: 1;
 }
 
+.custom-opacity {
+  opacity: 1 !important;
+}
+
 .custom-table tr:first-child td {
   border-top: 1px solid #c5c5c5;
 }

@@ -294,7 +294,7 @@ const DataTable = ({ data }) => {
                           </div>
                         </td>
                         <td>S</td>
-                        <td>{item?.sum_cost === "0" ? "-" : item?.sum_cost}</td>
+                        <td className="custom-opacity">{item?.sum_cost === "0" ? "-" : item?.sum_cost}</td>
                         {Object.values(item?.date_report || {}).map((value) => (
                           <td key={Math.random()}>
                             {value?.cost === "0" ? "-" : value?.cost}
@@ -303,7 +303,7 @@ const DataTable = ({ data }) => {
                       </tr>
                       <tr className="sticky-left-1">
                         <td>R</td>
-                        <td>
+                        <td className="custom-opacity">
                           {item?.sum_revenue === "0"
                             ? "-"
                             : item?.sum_revenue}
@@ -328,6 +328,7 @@ const DataTable = ({ data }) => {
                               ? "white"
                               : "#435071",
                           }}
+                          className="custom-opacity"
                         >
                           {item?.sum_profit === "0" ? "-" : item?.sum_profit}
                         </td>
@@ -364,6 +365,7 @@ const DataTable = ({ data }) => {
                               ? "white"
                               : "#435071",
                           }}
+                          className="custom-opacity"
                         >
                           {item?.sum_profit_rate === "0"
                             ? "-"
