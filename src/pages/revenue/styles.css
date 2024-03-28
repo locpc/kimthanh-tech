@@ -375,3 +375,7 @@ table {
 tr {
   height: 23px;
 }
+
+.rank td {
+  border-bottom: 1px solid #c5c5c5;
+}

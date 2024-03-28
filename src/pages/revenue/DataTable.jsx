@@ -280,7 +280,12 @@ const DataTable = ({ data }) => {
                               </p>
                             </Tooltip>
                           </div>
-                          <div className="grid md:grid-cols-2">
+                          <div className="absolute top-0 -left-1 md:hidden bg-[#F1F1F1] text-[11px] text-[#A3AED0] font-bold px-2 rounded-br-lg">
+                              {item?.index < 10
+                                ? `0${item?.index}`
+                                : item?.index}
+                            </div>
+                          <div className="grid md:grid-cols-2 mt-[10px] md:mt-0 text-[12px] md:text-[13px]">
                             <div className="flex gap-1">
                               <p>Doanh thu:</p>
                               <p className="text-main font-bold">
