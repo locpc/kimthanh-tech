@@ -107,7 +107,6 @@ const Revenue = () => {
     }
     return [value, "year"];
   };
-  console.log("defaults",defaults());
 
   const checkValue = () => {
     if (

@@ -12,6 +12,7 @@ const EditModal = ({ openEdit, handleCancel, item, setCheckSuceess }) => {
   const [vps, setVps] = useState(item?.vps_ip || "");
   const [status, setStatus] = useState(item?.status);
   const [rank, setRank] = useState(item?.rank || "A");
+  const [orderNum, setOrderNum] = useState(item?.order_num);
 
   const handleEdit = async () => {
     if (item?.id) {
@@ -23,6 +24,7 @@ const EditModal = ({ openEdit, handleCancel, item, setCheckSuceess }) => {
           vps_ip: vps,
           status,
           rank,
+          order_num: orderNum
         };
         const res = await api.post(
           `${API_URL}/app/update/${item?.id}`,
@@ -104,6 +106,15 @@ const EditModal = ({ openEdit, handleCancel, item, setCheckSuceess }) => {
             { value: 0, label: "Deactive" },
             { value: 1, label: "Active" },
           ]}
+        />
+      </div>
+      <div className="mt-4">
+        <p className="mb-2 text-base">Order</p>
+        <Input
+          value={orderNum}
+          type="number"
+          style={{ width: "100%" }}
+          onChange={(e) => setOrderNum(e.target.value)}
         />
       </div>
     </Modal>

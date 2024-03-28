@@ -10,7 +10,23 @@ const DataTable = ({ data }) => {
     navigate(`/revenue/${app_id}`);
   };
 
-  const groupedByRank = data?.list_app?.reduce((acc, app) => {
+  const sortedApps = data?.list_app?.sort((a, b) => {
+    // First, sort by rank
+    if (a.app_info.rank < b.app_info.rank) return -1;
+    if (a.app_info.rank > b.app_info.rank) return 1;
+    // If ranks are equal, sort by status
+    if (a.app_info.order_num < b.app_info.order_num) return -1;
+    if (a.app_info.order_num > b.app_info.order_num) return 1;
+    return 0;
+  });
+
+  const addIdApps = sortedApps?.map((item, index) => ({
+    ...item,
+    index: index + 1,
+  }));
+
+  // Group sorted apps by rank
+  const groupedApps = addIdApps?.reduce((acc, app) => {
     const rank = app.app_info.rank;
     if (!acc[rank]) {
       acc[rank] = [];
@@ -18,13 +34,6 @@ const DataTable = ({ data }) => {
     acc[rank].push(app);
     return acc;
   }, {});
-
-  const sortedGroupedByRank = {};
-  Object.keys(groupedByRank || {})
-    .sort()
-    .forEach((key) => {
-      sortedGroupedByRank[key] = groupedByRank[key];
-    });
 
   const colorToRank = (item) => {
     switch (item) {
@@ -58,7 +67,9 @@ const DataTable = ({ data }) => {
                     data?.total?.sum_month_report ||
                     []
                 ).map((value) => (
-                  <th key={Math.random()} className="custom-th">{value}</th>
+                  <th key={Math.random()} className="custom-th">
+                    {value}
+                  </th>
                 ))}
               </tr>
             </thead>
@@ -205,7 +216,7 @@ const DataTable = ({ data }) => {
               <tr className="h-[5px] custom-split">
                 <td colSpan="100"></td>
               </tr>
-              {Object.entries(sortedGroupedByRank || {}).map(([key, value]) => (
+              {Object.entries(groupedApps || {}).map(([key, value]) => (
                 <React.Fragment key={Math.random()}>
                   <tr className="rank">
                     <td colSpan="100">
@@ -243,11 +254,14 @@ const DataTable = ({ data }) => {
                         <td
                           rowSpan={4}
                           className="sticky text-center px-1 cursor-pointer hover:!bg-[#ebe9e9]"
-                          onClick={() =>
-                            onHandleDetails(item?.app_info?.id)
-                          }
+                          onClick={() => onHandleDetails(item?.app_info?.id)}
                         >
-                          <div className="hidden md:flex gap-1 items-center">
+                          <div className="mt-1 relative hidden md:flex gap-1 items-center">
+                            <div className="absolute -top-[18px] -left-1 bg-[#F1F1F1] text-[11px] text-[#A3AED0] font-bold px-2 rounded-br-lg">
+                              {item?.index < 10
+                                ? `0${item?.index}`
+                                : item?.index}
+                            </div>
                             <div
                               className={`w-2 h-2 rounded ${
                                 item?.app_info?.status === 1
@@ -294,7 +308,9 @@ const DataTable = ({ data }) => {
                           </div>
                         </td>
                         <td>S</td>
-                        <td className="custom-opacity">{item?.sum_cost === "0" ? "-" : item?.sum_cost}</td>
+                        <td className="custom-opacity">
+                          {item?.sum_cost === "0" ? "-" : item?.sum_cost}
+                        </td>
                         {Object.values(item?.date_report || {}).map((value) => (
                           <td key={Math.random()}>
                             {value?.cost === "0" ? "-" : value?.cost}
@@ -304,9 +320,7 @@ const DataTable = ({ data }) => {
                       <tr className="sticky-left-1">
                         <td>R</td>
                         <td className="custom-opacity">
-                          {item?.sum_revenue === "0"
-                            ? "-"
-                            : item?.sum_revenue}
+                          {item?.sum_revenue === "0" ? "-" : item?.sum_revenue}
                         </td>
                         {Object.values(item?.date_report || {}).map((value) => (
                           <td key={Math.random()}>
@@ -392,7 +406,11 @@ const DataTable = ({ data }) => {
                           </td>
                         ))}
                       </tr>
-                      <tr className={`custom-last-app ${index === value?.length - 1 ? "none" : ""}`}>
+                      <tr
+                        className={`custom-last-app ${
+                          index === value?.length - 1 ? "none" : ""
+                        }`}
+                      >
                         <td colSpan="100"></td>
                       </tr>
                     </React.Fragment>
