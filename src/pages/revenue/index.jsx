@@ -48,6 +48,10 @@ const Revenue = () => {
 
   const handleChangeFilterType = (type) => {
     setActiveFilter(type);
+    const year = new Date().getFullYear();
+    if (type === "week" && (value === defaultValue() || value === year)) {
+      defaults(1);
+    }
     setTimeout(() => {
       if (ref.current.nativeElement.innerHTML) {
         const getTempValue =
@@ -55,7 +59,7 @@ const Revenue = () => {
         const value = getTempValue.split('"');
         setValue(value[1]);
       }
-    }, 3000);
+    }, 2000);
   };
   const handleChangeFilter = () => {
     setOpenDatePicker(!openDatePicker);
@@ -64,7 +68,10 @@ const Revenue = () => {
     setValue(dateString);
   };
 
-  const defaults = () => {
+  const defaults = (check = 0) => {
+    if (check === 1) {
+      return [null, "week"];
+    }
     if (activeFilter === "month") {
       const temp = value.replace("-", "/");
       return [temp, "month"];
@@ -75,7 +82,6 @@ const Revenue = () => {
     }
     return [value, "year"];
   };
-  console.log(defaults());
 
   const checkValue = () => {
     if (
@@ -170,7 +176,7 @@ const Revenue = () => {
             <div onClick={handleChangeFilter}>
               <DatePicker
                 ref={ref}
-                defaultValue={dayjs(defaults()[0])}
+                defaultValue={dayjs()}
                 onChange={onChangeTime}
                 picker={defaults()[1]}
                 suffixIcon={<img src="/imgs/selected-time.svg" alt="time" />}

@@ -52,7 +52,7 @@ const DataTable = ({ data }) => {
               <tr>
                 <th className="w-32 md:w-72">App</th>
                 <th className="empty-header w-5"></th>
-                <th class="sum-header">Sum</th>
+                <th className="sum-header">Sum</th>
                 {Object.keys(
                   data?.total?.sum_date_report ||
                     data?.total?.sum_month_report ||
