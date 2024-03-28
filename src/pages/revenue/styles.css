@@ -165,7 +165,7 @@ th:first-child {
   position: relative;
   width: 100%;
   z-index: 1;
-  overflow-x: auto;
+  overflow: auto;
 }
 .custom-table table {
   width: 100%;
