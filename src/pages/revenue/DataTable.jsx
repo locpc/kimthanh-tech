@@ -244,7 +244,7 @@ const DataTable = ({ data }) => {
                             <p className="text-xs text-[#A3AED0] font-bold text-left ">
                               {item?.app_info?.store_id}
                             </p>
-                            <p className="text-sm text-main font-bold text-left">
+                            <p className="text-[13px] md:text-sm text-main font-bold text-left">
                               {item?.app_info?.app_name}
                             </p>
                           </div>
