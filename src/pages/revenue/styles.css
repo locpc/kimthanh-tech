@@ -76,9 +76,6 @@ td {
   font-weight: 400;
 }
 
-::-webkit-scrollbar {
-  display: none;
-}
 
 :where(.css-dev-only-do-not-override-1k979oh).ant-select-outlined:not(
     .ant-select-customize-input
@@ -168,7 +165,7 @@ th:first-child {
   position: relative;
   width: 100%;
   z-index: 1;
-  overflow: auto;
+  overflow-x: auto;
 }
 .custom-table table {
   width: 100%;

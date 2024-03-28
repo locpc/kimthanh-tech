@@ -68,20 +68,46 @@ const Revenue = () => {
     setValue(dateString);
   };
 
+  const getDateFromWeek = (year, week, dayOfWeek) => {
+    var januaryFirst = new Date(year, 0, 1);
+    var daysOffset = (week - 1) * 7;
+
+    // Calculate the day of the week for January 1st
+    var dayOfWeekJanuaryFirst = januaryFirst.getDay();
+
+    // Adjust the offset to handle the case where January 1st is not Monday (0-indexed)
+    daysOffset -= (dayOfWeekJanuaryFirst - 1);
+
+    // Set the date to the first day of the target week
+    januaryFirst.setDate(januaryFirst.getDate() + daysOffset);
+
+    // Adjust to the specified day of the week
+    januaryFirst.setDate(januaryFirst.getDate() + (dayOfWeek - januaryFirst.getDay()));
+
+    return januaryFirst;
+}
+
   const defaults = (check = 0) => {
     if (check === 1) {
-      return [null, "week"];
+      let month = new Date().getMonth() + 1;
+      const year = new Date().getFullYear();
+      const date = new Date().getDate();
+      if (month < 10) month = `0${month}`;
+      console.log(`${month}/${date}/${year}`)
+      return [`${month}/${date}/${year}`, "week"];
     }
     if (activeFilter === "month") {
       const temp = value.replace("-", "/");
       return [temp, "month"];
     }
     if (activeFilter === "week") {
-      return [value, "week"];
+      const temp = value.split("-");
+      return [getDateFromWeek(temp[0],temp[1].slice(0,2),1), "week"];
       // setSearchParams({});
     }
     return [value, "year"];
   };
+  console.log("defaults",defaults());
 
   const checkValue = () => {
     if (
